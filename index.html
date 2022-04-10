@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+		<title>Film Finder</title>
+
+		<link rel='stylesheet' href='./style.css' type='text/css'>
+		<script defer src='./movie_database.js'></script>
+		<script defer src='./script.js'></script>
+	</head>
+	<body>
+		<h1>Film Finder</h1>
+		<form>
+			<fieldset class='search-filter'>
+				<p class='search-bar'>
+					<input type='text' id='search' placeholder='Search...'>
+					<button>
+						<svg class='search-icon' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+							<path id='search-icon' fill-rule='evenodd' d=' M14.53 15.59a8.25 8.25 0 111.06-1.06l5.69 5.69a.75.75 0 11-1.06 1.06l-5.69-5.69zM2.5 9.25a6.75 6.75 0 1111.74 4.547.746.746 0 00-.443.442A6.75 6.75 0 012.5 9.25z'/>
+						</svg>
+					</button>
+					<button id='toggle-filter-btn'>Filter</button>
+				</p>
+				<p>
+					<input type='radio' name='filter' id='recent'>recent
+					<label for='recent'>Recent movies (2014 and later)</label>
+				</p>
+				<p>
+					<input type='radio' name='filter' id='avenger'>avenger
+					<label for='avenger'>Avenger movies</label>
+				</p>
+				<p>
+					<input type='radio' name='filter' id='x-men'>x-men
+					<label for='x-men'>X-Men movies</label>
+				</p>
+				<p>
+					<input type='radio' name='filter' id='princess'>princess
+					<label for='princess'>Princess movies</label>
+				</p>
+				<p>
+					<input type='radio' name='filter' id='batman'>batman
+					<label for='batman'>Batman movies</label>
+				</p>
+				<p>
+					<input type='radio' name='filter' id='all'>all
+					<label for='all'>All movies</label>
+				</p>
+			</fieldset>
+		</form>
+
+		<ul id='movie-list'>
+		</ul>
+		
+	</body>
+</html>
+
