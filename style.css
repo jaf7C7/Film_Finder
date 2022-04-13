@@ -5,6 +5,10 @@
 	box-sizing: border-box;
 }
 
+img {
+	width: 100%;
+}
+
 svg {
 	width: 100%;
 }
@@ -166,5 +170,12 @@ fieldset {
 }
 
 #movie-list {
-	border 1px dashed gray;
+	width: 80%;
+	margin: 1em auto;
+	list-style-type: none;
+	padding-inline-start: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-gap: 5px;
 }
+
