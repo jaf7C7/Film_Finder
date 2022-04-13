@@ -1,5 +1,8 @@
-const movieList = document.getElementById('movie-list');
+document.querySelectorAll('fieldset p:not(.search-bar)').forEach(e => {
+	e.classList.add('hidden');
+});
 
+const movieList = document.getElementById('movie-list');
 for (const movie of movies) {
 	const id = movie.imdbID;
 	const poster = movie.poster;
@@ -7,6 +10,7 @@ for (const movie of movies) {
 	
 	const li = document.createElement('li');
 	li.setAttribute('id', id);
+	li.style.setProperty('--content', `"${title}"`);
 
 	const a = document.createElement('a');
 	a.setAttribute('href', `https://imdb.com/title/${id}`);
@@ -19,3 +23,9 @@ for (const movie of movies) {
 	li.appendChild(a);
 	movieList.appendChild(li);
 }
+
+document.getElementById('toggle-filter-btn').addEventListener('click', () => {
+	document.querySelectorAll('fieldset p:not(.search-bar)').forEach(e => {
+		e.classList.toggle('hidden');
+	});
+});
