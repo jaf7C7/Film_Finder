@@ -29,3 +29,35 @@ document.getElementById('toggle-filter-btn').addEventListener('click', () => {
 		e.classList.toggle('hidden');
 	});
 });
+
+const filterMovies = (filterBy, filterTerm) => {
+	for (let movie of movieList.children) movie.classList.remove('hidden');
+	
+	let nonMatching;
+	if (filterBy === 'year') {
+		nonMatching = movies.filter(e => +e.year < 2014);
+	} else if (filterBy === 'title') {
+		nonMatching = movies.filter(e => {
+			return !e.title.toLowerCase().includes(filterTerm);
+		});
+	}
+
+	for (let movie of nonMatching) {
+		document.getElementById(movie.imdbID).classList.add('hidden');
+	}
+};
+
+[ 'recent', 'avenger', 'x-men', 'princess', 'batman' ].forEach(id => {
+	let callback = () => { filterMovies('title', id); };
+	if (id === 'recent') callback = () => { filterMovies('year', 2014); };
+	document.getElementById(id).addEventListener('click', callback);
+});
+
+const searchBar = document.getElementById('search');
+searchBar.addEventListener('keydown', () => {
+	filterMovies('title', searchBar.value);
+});
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+	for (let movie of movieList.children) movie.classList.remove('hidden');
+});
