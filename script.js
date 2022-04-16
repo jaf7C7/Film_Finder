@@ -1,63 +1,91 @@
-document.querySelectorAll('fieldset p:not(.search-bar)').forEach(e => {
-	e.classList.add('hidden');
-});
+/* Global variables */
 
 const movieList = document.getElementById('movie-list');
-for (const movie of movies) {
-	const id = movie.imdbID;
-	const poster = movie.poster;
-	const title = movie.title;
-	
-	const li = document.createElement('li');
-	li.setAttribute('id', id);
-	li.style.setProperty('--content', `"${title}"`);
+const searchBar = document.getElementById('search-bar');
+const checkboxes = document.querySelectorAll('.checkbox input');
+const filters = document.querySelectorAll('fieldset p:not(.search)');
+const toggleFilterButton = document.getElementById('toggle-filter-btn');
 
-	const a = document.createElement('a');
-	a.setAttribute('href', `https://imdb.com/title/${id}`);
+/* Helper functions */
 
-	const img = document.createElement('img');
-	img.setAttribute('src', poster);
-	img.setAttribute('alt', title);
-
-	a.appendChild(img);
-	li.appendChild(a);
-	movieList.appendChild(li);
-}
-
-document.getElementById('toggle-filter-btn').addEventListener('click', () => {
-	document.querySelectorAll('fieldset p:not(.search-bar)').forEach(e => {
-		e.classList.toggle('hidden');
-	});
-});
-
-const filterMovies = (filterBy, filterTerm) => {
-	for (let movie of movieList.children) movie.classList.remove('hidden');
-	
-	let nonMatching;
-	if (filterBy === 'year') {
-		nonMatching = movies.filter(e => +e.year < 2014);
-	} else if (filterBy === 'title') {
-		nonMatching = movies.filter(e => {
-			return !e.title.toLowerCase().includes(filterTerm);
-		});
-	}
-
-	for (let movie of nonMatching) {
-		document.getElementById(movie.imdbID).classList.add('hidden');
+const filterItems = (object, type, value) => {
+	console.log('filterItems(', object, `${type}, ${value})`); // debug
+	if (type === 'year') {
+		return object.filter(e => +e.year.slice(-4) >= value);
+	} else if (type === 'type') {
+		return object.filter(e => e.type == value);
+	} else { // type === 'title'
+		return object.filter(e => e.title.toLowerCase().includes(value));
 	}
 };
 
-[ 'recent', 'avenger', 'x-men', 'princess', 'batman' ].forEach(id => {
-	let callback = () => { filterMovies('title', id); };
-	if (id === 'recent') callback = () => { filterMovies('year', 2014); };
-	document.getElementById(id).addEventListener('click', callback);
+const clearList = () => {
+	console.log('clearList'); // debug
+	Array.from(movieList.children).forEach(e => movieList.removeChild(e));
+};
+
+const refreshList = () => {
+	console.log('refreshList'); // debug
+	let results = movies;
+	for (const checkbox of checkboxes) {
+		if (checkbox.checked) {
+			results = filterItems(results, checkbox.name, checkbox.value);
+		}
+	}
+	results = filterItems(results, 'title', searchBar.value);
+	clearList();
+	populateList(results);
+}
+
+const populateList = items => {
+	console.log(`populateList(${items})`); // debug
+	for (const item of items) {
+		const id = item.imdbID;
+		const title = item.title;
+		const poster = item.poster;
+
+		const li = document.createElement('li');
+		li.setAttribute('id', id);
+		li.setAttribute('style', `--content:"${title}";`);
+
+		const a = document.createElement('a');
+		a.setAttribute('href', `https://imdb.com/title/${id}`);
+
+		const img = document.createElement('img');
+		img.setAttribute('src', poster);
+		img.setAttribute('alt', title);
+
+		a.appendChild(img);
+		li.appendChild(a);
+		movieList.appendChild(li);
+	}
+}
+
+const resetFilters = () => {
+	console.log('resetFilters'); // debug
+	movieResults = movies;
+	refreshList();
+};
+
+/* Search bar */
+
+searchBar.addEventListener('keydown', refreshList);
+
+/* Toggle filter button */
+
+toggleFilterButton.addEventListener('click', () => {
+	filters.forEach(e => e.classList.toggle('hidden'));
 });
 
-const searchBar = document.getElementById('search');
-searchBar.addEventListener('keydown', () => {
-	filterMovies('title', searchBar.value);
-});
+/* Checkboxes */
 
-document.getElementById('reset-btn').addEventListener('click', () => {
-	for (let movie of movieList.children) movie.classList.remove('hidden');
-});
+checkboxes.forEach(e => e.addEventListener('change', refreshList));
+
+/* Reset filter button */
+
+document.getElementById('reset-btn').addEventListener('click', resetFilters);
+
+/* Filters initially hidden */
+
+filters.forEach(e => e.classList.add('hidden'));
+
