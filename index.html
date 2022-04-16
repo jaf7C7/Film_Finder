@@ -14,32 +14,40 @@
 		<h1>Film Finder</h1>
 		<form>
 			<fieldset>
-				<p class='search-bar'>
-					<input type='text' id='search' placeholder='Search...'>
+				<p class='search'>
+					<input type='text' id='search-bar' placeholder='Search...'>
 					<svg class='search-btn' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
 						<path id='search-icon' fill-rule='evenodd' d=' M14.53 15.59a8.25 8.25 0 111.06-1.06l5.69 5.69a.75.75 0 11-1.06 1.06l-5.69-5.69zM2.5 9.25a6.75 6.75 0 1111.74 4.547.746.746 0 00-.443.442A6.75 6.75 0 012.5 9.25z'/>
 					</svg>
 					<button type='button' id='toggle-filter-btn'>Filter</button>
 				</p>
-				<p class="radio">
-					<input type='radio' name='filter' id='recent'>
-					<label for='recent'>Recent movies (2014 and later)</label>
+				<p class="checkbox">
+					<input type='checkbox' id='recent' name='year' value='2014'>
+					<label for='recent'>Recent (2014 and later)</label>
 				</p>
-				<p class="radio">
-					<input type='radio' name='filter' id='avenger'>
-					<label for='avenger'>Avenger movies</label>
+				<p class="checkbox">
+					<input type='checkbox' id='avenger' name='title' value='avenger'>
+					<label for='avenger'>Avenger</label>
 				</p>
-				<p class="radio">
-					<input type='radio' name='filter' id='x-men'>
-					<label for='x-men'>X-Men movies</label>
+				<p class="checkbox">
+					<input type='checkbox' id='x-men' name='title' value='x-men'>
+					<label for='x-men'>X-Men</label>
 				</p>
-				<p class="radio">
-					<input type='radio' name='filter' id='princess'>
-					<label for='princess'>Princess movies</label>
+				<p class="checkbox">
+					<input type='checkbox' id='princess' name='title' value='princess'>
+					<label for='princess'>Princess</label>
 				</p>
-				<p class="radio">
-					<input type='radio' name='filter' id='batman'>
-					<label for='batman'>Batman movies</label>
+				<p class="checkbox">
+					<input type='checkbox' id='batman' name='title' value='batman'>
+					<label for='batman'>Batman</label>
+				</p>
+				<p class="checkbox">
+					<input type='checkbox' id='series' name='type' value='series'>
+					<label for='series'>Series</label>
+				</p>
+				<p class="checkbox">
+					<input type='checkbox' id='movies' name='type' value='movie'>
+					<label for='movies'>Movies</label>
 				</p>
 				<p class="reset">
 					<button id="reset-btn" type="reset">Reset</button>
