@@ -1,7 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&family=Montserrat:wght@400;500&display=swap');
 
-.hidden {
-	display: none;
+:root {
+	--primary-H: 202;
+	--primary-S: 47%;
+	--primary-L: 50%;
+	--primary: hsl(
+		var(--primary-H),
+		var(--primary-S),
+		var(--primary-L)
+	);
+	--primary-light: hsl(
+		var(--primary-H),
+		var(--primary-S),
+		calc(var(--primary-L) + 10%)
+	);
+
+	--foreground: hsl(0, 19%, 27%);
+	--background: #fffdf4;
+	--bright-white: #fff;
+	--light-grey: lightgray;
+	--dark-grey: gray;
+	--green: hsl(125, 100%, 38%);
 }
 
 *,
@@ -11,32 +30,15 @@
 	box-sizing: border-box;
 }
 
+.hidden {
+	display: none;
+}
+
 img {
 	max-width: 500px;
 	width: 100%;
 	display: block;
 	margin: 0 auto;
-}
-
-:root {
-	--primary-H: 202;
-	--primary-S: 47%;
-	--primary-L: 50%;
-	--primary: hsl(
-		var(--primary-H), var(--primary-S), var(--primary-L)
-	);
-	--primary-light: hsl(
-		var(--primary-H), var(--primary-S), calc(
-			var(--primary-L) + 10%
-		)
-	);
-
-	--foreground: hsl(0, 19%, 27%);
-	--background: #fffdf4;
-	--bright-white: #fff;
-	--light-grey: lightgray;
-	--dark-grey: gray;
-	--green: hsl(125, 100%, 38%);
 }
 
 html {
@@ -63,8 +65,7 @@ h1 {
 		10px 10px hsl(
 			var(--primary-H),
 			var(--primary-S),
-			calc(var(--primary-L) + 30%),
-			0.8
+			calc(var(--primary-L) + 30%)
 		),
 		15px 15px var(--primary-light);
 }
