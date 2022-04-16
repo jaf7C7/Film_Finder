@@ -1,15 +1,11 @@
-/* Global variables */
-
 const movieList = document.getElementById('movie-list');
 const searchBar = document.getElementById('search-bar');
 const checkboxes = document.querySelectorAll('.checkbox input');
 const filters = document.querySelectorAll('fieldset p:not(.search)');
 const toggleFilterButton = document.getElementById('toggle-filter-btn');
-
-/* Helper functions */
+const resetButton = document.getElementById('reset-btn');
 
 const filterItems = (object, type, value) => {
-	console.log('filterItems(', object, `${type}, ${value})`); // debug
 	if (type === 'year') {
 		return object.filter(e => +e.year.slice(-4) >= value);
 	} else if (type === 'type') {
@@ -20,12 +16,10 @@ const filterItems = (object, type, value) => {
 };
 
 const clearList = () => {
-	console.log('clearList'); // debug
 	Array.from(movieList.children).forEach(e => movieList.removeChild(e));
 };
 
 const refreshList = () => {
-	console.log('refreshList'); // debug
 	let results = movies;
 	for (const checkbox of checkboxes) {
 		if (checkbox.checked) {
@@ -38,7 +32,6 @@ const refreshList = () => {
 }
 
 const populateList = items => {
-	console.log(`populateList(${items})`); // debug
 	for (const item of items) {
 		const id = item.imdbID;
 		const title = item.title;
@@ -62,30 +55,20 @@ const populateList = items => {
 }
 
 const resetFilters = () => {
-	console.log('resetFilters'); // debug
 	movieResults = movies;
 	refreshList();
 };
 
-/* Search bar */
-
 searchBar.addEventListener('keydown', refreshList);
-
-/* Toggle filter button */
 
 toggleFilterButton.addEventListener('click', () => {
 	filters.forEach(e => e.classList.toggle('hidden'));
 });
 
-/* Checkboxes */
-
 checkboxes.forEach(e => e.addEventListener('change', refreshList));
 
-/* Reset filter button */
-
-document.getElementById('reset-btn').addEventListener('click', resetFilters);
-
-/* Filters initially hidden */
+resetButton.addEventListener('click', resetFilters);
 
 filters.forEach(e => e.classList.add('hidden'));
 
+refreshList();
